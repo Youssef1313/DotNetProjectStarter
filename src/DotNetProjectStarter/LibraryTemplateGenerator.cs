@@ -46,6 +46,17 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
         File.WriteAllText(Path.Combine(outputDirectory, "global.json"), LibraryTemplateConstants.GlobalJsonFile);
         File.WriteAllText(Path.Combine(outputDirectory, "nuget.config"), LibraryTemplateConstants.NuGetConfigFile);
 
+        Console.WriteLine("Post-template creation instructions:");
+        Console.WriteLine("- Create a key.snk file at repository root using 'sn –k private.snk'.");
+        Console.WriteLine("- Update Directory.Build.props with package description.");
+        if (options.NuGetUserName is null)
+        {
+            Console.WriteLine("- Update Directory.Build.props with package author.");
+            Console.WriteLine("- Update .github/workflows/release.yml with NuGet username.");
+        }
+        Console.WriteLine("- Update .github/workflows/release.yml with NuGet package name.");
+        Console.WriteLine("- Update LICENSE with license copyright holder.");
+        Console.WriteLine("- Login to nuget.org with your account and set up trusted publishing via <https://www.nuget.org/account/trustedpublishing>. Set the Workflow File to 'release.yml'.");
         return true;
     }
 }
