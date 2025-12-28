@@ -22,11 +22,18 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
         var githubWorkflowsPath = Path.Combine(outputDirectory, ".github", "workflows");
         Directory.CreateDirectory(githubWorkflowsPath);
         File.WriteAllText(Path.Combine(githubWorkflowsPath, "ci.yml"), LibraryTemplateConstants.LibraryTemplateCIYML);
-        File.WriteAllText(Path.Combine(githubWorkflowsPath, "release.yml"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.ReleaseYML, packageName ?? "PACKAGE_NAME_GOES_HERE", nugetUsername ?? "NUGET_USERNAME_GOES_HERE"));
+        File.WriteAllText(Path.Combine(githubWorkflowsPath, "release.yml"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.ReleaseYML, nugetUsername ?? "NUGET_USERNAME_GOES_HERE"));
 
         var srcProjectDirectory = Path.Combine(outputDirectory, "src", projectName);
         Directory.CreateDirectory(srcProjectDirectory);
-        File.WriteAllText(Path.Combine(srcProjectDirectory, $"{projectName}.csproj"), LibraryTemplateConstants.ProjectFile);
+        if (packageName is not null && packageName != projectName)
+        {
+            File.WriteAllText(Path.Combine(srcProjectDirectory, $"{projectName}.csproj"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.ProjectFileWithExplicitPackageId, packageName));
+        }
+        else
+        {
+            File.WriteAllText(Path.Combine(srcProjectDirectory, $"{projectName}.csproj"), LibraryTemplateConstants.ProjectFile);
+        }
 
         var testsDirectory = Path.Combine(outputDirectory, "tests");
         var testsProjectDirectory = Path.Combine(testsDirectory, $"{projectName}.Tests");
@@ -55,7 +62,6 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
             Console.WriteLine("- Update Directory.Build.props with package author.");
             Console.WriteLine("- Update .github/workflows/release.yml with NuGet username.");
         }
-        Console.WriteLine("- Update .github/workflows/release.yml with NuGet package name.");
         Console.WriteLine("- Update LICENSE with license copyright holder.");
         Console.WriteLine("- Login to nuget.org with your account and set up trusted publishing via <https://www.nuget.org/account/trustedpublishing>. Set the Workflow File to 'release.yml'.");
         return true;

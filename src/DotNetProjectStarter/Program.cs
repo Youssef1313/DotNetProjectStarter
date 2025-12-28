@@ -1,38 +1,44 @@
-﻿using System;
+﻿using System.CommandLine;
 
-string? name = null;
-string? outputDirectory = null;
-string? nugetPackageName = null;
-string? nugetUsername = null;
+args = ["--name"];
 
-// TODO: Use System.CommandLine, or at least write a better parser if adding a dependency is problematic.
-for (int i = 0; i < args.Length; i++)
+var nameOption = new Option<string>("--name")
 {
-    if (args[i] == "--name")
-    {
-        name = GetArgumentValue(i, args);
-    }
-    else if (args[i] == "--output-directory")
-    {
-        outputDirectory = GetArgumentValue(i, args);
-    }
-    else if (args[i] == "--nuget-username")
-    {
-        nugetUsername = GetArgumentValue(i, args);
-    }
-}
+    Description = "The name of the project to create",
+    Arity = ArgumentArity.ExactlyOne,
+};
+
+var outputDirectoryOption = new Option<string>("--output-directory")
+{
+    Description = "The directory where the project will be created",
+    Arity = ArgumentArity.ExactlyOne,
+};
+
+var nugetPackageNameOption = new Option<string>("--nuget-package-name")
+{
+    Description = "The name of the NuGet package for package publishing",
+    Arity = ArgumentArity.ExactlyOne,
+};
+
+var nugetUsernameOption = new Option<string>("--nuget-username")
+{
+    Description = "The NuGet username for package publishing",
+    Arity = ArgumentArity.ExactlyOne,
+};
+
+var rootCommand = new RootCommand("Creates a new .NET project template");
+rootCommand.Options.Add(nameOption);
+rootCommand.Options.Add(outputDirectoryOption);
+rootCommand.Options.Add(nugetPackageNameOption);
+rootCommand.Options.Add(nugetUsernameOption);
+
+var parseResult = rootCommand.Parse(args);
+var name = parseResult.GetValue(nameOption);
+var outputDirectory = parseResult.GetValue(outputDirectoryOption);
+var nugetPackageName = parseResult.GetValue(nugetPackageNameOption);
+var nugetUsername = parseResult.GetValue(nugetUsernameOption);
 
 var options = new TemplateGenerationOptions(name, outputDirectory, nugetPackageName, nugetUsername);
 
 var generator = new LibraryTemplateGenerator();
 generator.Generate(options);
-
-static string GetArgumentValue(int i, string[] args)
-{
-    if (args.Length < i + 2 || args[i + 1].StartsWith("--", StringComparison.Ordinal))
-    {
-        throw new InvalidOperationException($"A value for '{args[i]}' was not provided.");
-    }
-
-    return args[i + 1];
-}

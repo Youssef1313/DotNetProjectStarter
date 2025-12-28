@@ -143,9 +143,6 @@
             if: |
               (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) ||
               (github.event_name == 'workflow_dispatch' && inputs.publish-to-nuget == true)
-            environment:
-              name: nuget.org
-              url: https://www.nuget.org/packages/{0}
 
             steps:
               - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -167,7 +164,7 @@
                 uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 # v1.1.0
                 id: nugetlogin
                 with:
-                  user: {1}
+                  user: {0}
 
               - name: Push to NuGet.org
                 run: dotnet nuget push "./packages/**/*.nupkg" --api-key "${{ steps.nugetlogin.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
@@ -204,6 +201,18 @@
 
           <PropertyGroup>
             <TargetFrameworks>net462;net8.0</TargetFrameworks>
+          </PropertyGroup>
+
+        </Project>
+
+        """;
+
+    public const string ProjectFileWithExplicitPackageId = """
+        ﻿<Project Sdk="Microsoft.NET.Sdk">
+
+          <PropertyGroup>
+            <TargetFrameworks>net462;net8.0</TargetFrameworks>
+            <PackageId>{0}</PackageId>
           </PropertyGroup>
 
         </Project>
