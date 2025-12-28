@@ -1,0 +1,16 @@
+# top-most EditorConfig file
+root = true
+
+# Don't use tabs for indentation.
+[*]
+indent_style = space
+
+# Visual Studio XML project files
+[*.{csproj,vbproj,vcxproj,proj,projitems,shproj,props,targets,slnx}]
+indent_size = 2
+charset = utf-8-bom
+
+[*.{cs,vb}]
+indent_size = 4
+insert_final_newline = true
+charset = utf-8-bom
