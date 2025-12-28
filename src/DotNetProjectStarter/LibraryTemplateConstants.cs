@@ -87,6 +87,7 @@
 
         permissions:
           id-token: write
+          contents: read
 
         env:
           TreatWarningsAsErrors: true
