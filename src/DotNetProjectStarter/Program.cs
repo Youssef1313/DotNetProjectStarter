@@ -1,7 +1,5 @@
 ﻿using System.CommandLine;
 
-args = ["--name"];
-
 var nameOption = new Option<string>("--name")
 {
     Description = "The name of the project to create",
