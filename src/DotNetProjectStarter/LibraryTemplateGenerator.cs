@@ -57,6 +57,7 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
         Console.WriteLine("Post-template creation instructions:");
         Console.WriteLine("- Create a key.snk file at repository root using 'sn –k private.snk'.");
         Console.WriteLine("- Update Directory.Build.props with package description.");
+        Console.WriteLine("- Ensure Directory.Build.props has the correct package version you want to publish.");
         if (options.NuGetUserName is null)
         {
             Console.WriteLine("- Update Directory.Build.props with package author.");
