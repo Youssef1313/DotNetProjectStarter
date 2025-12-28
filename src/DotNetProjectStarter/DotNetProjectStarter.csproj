@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>create-project</ToolCommandName>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
 </Project>
