@@ -233,6 +233,13 @@
 
         """;
 
+    public const string TestProjectAssemblyInfoFile = """
+        using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+        [assembly: Parallelize(Scope = ExecutionScope.MethodLevel, Workers = 0)]
+
+        """;
+
     public const string EditorConfigFile = """
         # top-most EditorConfig file
         root = true
@@ -1112,8 +1119,8 @@
             <GenerateDocumentationFile>true</GenerateDocumentationFile>
             <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
             <DebugType>embedded</DebugType>
-            <SignAssembly>true</SignAssembly>
-            <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)key.snk</AssemblyOriginatorKeyFile>
+            <AssemblyOriginatorKeyFile Condition="Exists('$(MSBuildThisFileDirectory)key.snk')">$(MSBuildThisFileDirectory)key.snk</AssemblyOriginatorKeyFile>
+            <SignAssembly Condition="$(AssemblyOriginatorKeyFile) != ''">true</SignAssembly>
             <PackageReadmeFile>README.md</PackageReadmeFile>
 
             <!-- By default, NuGet doesn't include portable PDBs in nupkg. -->
@@ -1135,7 +1142,7 @@
           </ItemGroup>
 
           <ItemGroup>
-            <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
+            <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" Visible="false" />
           </ItemGroup>
 
         </Project>

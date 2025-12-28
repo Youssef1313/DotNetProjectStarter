@@ -17,4 +17,7 @@
   <Folder Name="/src/">
     <Project Path="src/DotNetProjectStarter/DotNetProjectStarter.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DotNetProjectStarter.Tests/DotNetProjectStarter.Tests.csproj" />
+  </Folder>
 </Solution>

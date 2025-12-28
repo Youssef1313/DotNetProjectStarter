@@ -33,6 +33,7 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
         Directory.CreateDirectory(testsProjectDirectory);
         File.WriteAllText(Path.Combine(testsDirectory, $"Directory.Build.props"), LibraryTemplateConstants.TestDirectoryBuildProps);
         File.WriteAllText(Path.Combine(testsProjectDirectory, $"{projectName}.Tests.csproj"), LibraryTemplateConstants.TestProjectFile);
+        File.WriteAllText(Path.Combine(testsProjectDirectory, "AssemblyInfo.cs"), LibraryTemplateConstants.TestProjectAssemblyInfoFile);
 
         File.WriteAllText(Path.Combine(outputDirectory, ".editorconfig"), LibraryTemplateConstants.EditorConfigFile);
         File.WriteAllText(Path.Combine(outputDirectory, ".gitattributes"), LibraryTemplateConstants.GitAttributesFile);
