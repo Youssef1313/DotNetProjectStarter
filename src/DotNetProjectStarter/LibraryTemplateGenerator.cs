@@ -8,7 +8,6 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
     {
         var projectName = options.Name ?? "LibraryProject";
         var outputDirectory = options.OutputDirectory ?? Directory.GetCurrentDirectory();
-        var packageName = options.NuGetPackageName;
         var nugetUsername = options.NuGetUserName;
 
         outputDirectory = Path.Combine(outputDirectory, projectName);
@@ -26,14 +25,7 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
 
         var srcProjectDirectory = Path.Combine(outputDirectory, "src", projectName);
         Directory.CreateDirectory(srcProjectDirectory);
-        if (packageName is not null && packageName != projectName)
-        {
-            File.WriteAllText(Path.Combine(srcProjectDirectory, $"{projectName}.csproj"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.ProjectFileWithExplicitPackageId, packageName));
-        }
-        else
-        {
-            File.WriteAllText(Path.Combine(srcProjectDirectory, $"{projectName}.csproj"), LibraryTemplateConstants.ProjectFile);
-        }
+        File.WriteAllText(Path.Combine(srcProjectDirectory, $"{projectName}.csproj"), LibraryTemplateConstants.ProjectFile);
 
         var testsDirectory = Path.Combine(outputDirectory, "tests");
         var testsProjectDirectory = Path.Combine(testsDirectory, $"{projectName}.Tests");
@@ -49,7 +41,7 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
         File.WriteAllText(Path.Combine(outputDirectory, "Directory.Build.props"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.DirectoryBuildPropsFile, options.NuGetUserName ?? "ADD_PACKAGE_AUTHOR_HERE"));
         File.WriteAllText(Path.Combine(outputDirectory, "Directory.Packages.props"), LibraryTemplateConstants.DirectoryPackagesPropsFile);
         File.WriteAllText(Path.Combine(outputDirectory, "LICENSE"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.LicenseFile, "ADD_COPYRIGHT_HOLDER_HERE"));
-        File.WriteAllText(Path.Combine(outputDirectory, "README.md"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.ReadmeFile, packageName ?? projectName));
+        File.WriteAllText(Path.Combine(outputDirectory, "README.md"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.ReadmeFile, projectName));
         File.WriteAllText(Path.Combine(outputDirectory, $"{projectName}.slnx"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.SlnxFile, projectName));
         File.WriteAllText(Path.Combine(outputDirectory, "global.json"), LibraryTemplateConstants.GlobalJsonFile);
         File.WriteAllText(Path.Combine(outputDirectory, "nuget.config"), LibraryTemplateConstants.NuGetConfigFile);
