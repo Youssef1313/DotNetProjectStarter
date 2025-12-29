@@ -1331,6 +1331,7 @@
           <Folder Name="/Solution Items/">
             <File Path=".editorconfig" />
             <File Path=".gitignore" />
+            <File Path=".globalconfig" />
             <File Path="Directory.Build.props" />
             <File Path="Directory.Build.targets" />
             <File Path="Directory.Packages.props" />
