@@ -866,36 +866,65 @@
         """;
 
     public const string GlobalConfigFile = """
-        # IDE0003 and IDE0009: this and Me preferences (option defaults are already false)
+        # IDE0001: Simplify name (IDE-only per docs)
+        # IDE0002: Simplify member access (IDE-only per docs)
+        
+        # IDE0003 and IDE0009: this and Me preferences (option defaults are already false) (IDE-only per docs)
         dotnet_style_qualification_for_field = false
         dotnet_style_qualification_for_property = false
         dotnet_style_qualification_for_method = false
         dotnet_style_qualification_for_event = false
-        dotnet_diagnostic.IDE0003.severity = warning
-
+        dotnet_diagnostic.IDE0003.severity = suggestion
+        
+        # IDE0004: Remove unnecessary cast
+        dotnet_diagnostic.IDE0004.severity = warning
+        
         # IDE0005: Remove unnecessary imports
         dotnet_diagnostic.IDE0005.severity = warning
-
+        
+        # IDE0007 and IDE0008: var preferences
+        dotnet_diagnostic.IDE0007.severity = none
+        dotnet_diagnostic.IDE0008.severity = none
+        
+        # IDE0010: Add missing cases to switch statement
+        dotnet_diagnostic.IDE0010.severity = warning
+        
         # IDE0011: Add braces
         dotnet_diagnostic.IDE0011.severity = none
-
+        
         # IDE0016: Use throw expression
         dotnet_diagnostic.IDE0016.severity = warning
-
+        
         # IDE0017: Use object initializers
         dotnet_style_object_initializer = true
         dotnet_diagnostic.IDE0017.severity = warning
-
+        
         # IDE0018: Inline variable declaration
         dotnet_diagnostic.IDE0018.severity = warning
-
-        # IDE0020 and IDE0038: Use pattern matching to avoid is check followed by a cast
+        
+        # IDE0019: Use pattern matching to avoid 'as' followed by a 'null' check
+        # IDE0020 and IDE0038: Use pattern matching to avoid 'is' check followed by a cast
+        # IDE0078 and IDE0260: Use pattern matching
+        # IDE0083: Use pattern matching (not operator)
+        # IDE0084: Use pattern matching (IsNot operator) (VB-only)
+        
         csharp_style_pattern_matching_over_is_with_cast_check = true
         csharp_style_pattern_matching_over_as_with_null_check = true
+        dotnet_diagnostic.IDE0019.severity = warning
         dotnet_diagnostic.IDE0020.severity = warning
         dotnet_diagnostic.IDE0038.severity = warning
-
+        dotnet_diagnostic.IDE0078.severity = warning
+        dotnet_diagnostic.IDE0083.severity = warning
+        dotnet_diagnostic.IDE0260.severity = warning
+        
+        # IDE0021: Use expression body for constructors
         # IDE0022: Use expression body for methods
+        # IDE0023 and IDE0024: Use expression body for operators
+        # IDE0025: Use expression body for properties
+        # IDE0026: Use expression body for indexers
+        # IDE0027: Use expression body for accessors
+        # IDE0053: Use expression body for lambdas
+        # IDE0061: Use expression body for local functions
         csharp_style_expression_bodied_methods = true
         csharp_style_expression_bodied_constructors = true
         csharp_style_expression_bodied_operators = true
@@ -904,8 +933,16 @@
         csharp_style_expression_bodied_accessors = true
         csharp_style_expression_bodied_lambdas = true
         csharp_style_expression_bodied_local_functions = true
+        dotnet_diagnostic.IDE0021.severity = warning
         dotnet_diagnostic.IDE0022.severity = warning
-
+        dotnet_diagnostic.IDE0023.severity = warning
+        dotnet_diagnostic.IDE0024.severity = warning
+        dotnet_diagnostic.IDE0025.severity = warning
+        dotnet_diagnostic.IDE0026.severity = warning
+        dotnet_diagnostic.IDE0027.severity = warning
+        dotnet_diagnostic.IDE0053.severity = warning
+        dotnet_diagnostic.IDE0061.severity = warning
+        
         # IDE0028: Use collection initializers or expressions
         # IDE0300: Use collection expression for array
         # IDE0301: Use collection expression for empty
@@ -924,7 +961,7 @@
         dotnet_diagnostic.IDE0304.severity = none
         dotnet_diagnostic.IDE0305.severity = none
         dotnet_diagnostic.IDE0306.severity = none
-
+        
         # IDE0029: Null check can be simplified (ternary conditional check)
         # IDE0030: Null check can be simplified (nullable ternary conditional check)
         # IDE0270: Null check can be simplified (if null check)
@@ -932,67 +969,90 @@
         dotnet_diagnostic.IDE0029.severity = warning
         dotnet_diagnostic.IDE0030.severity = warning
         dotnet_diagnostic.IDE0270.severity = warning
-
+        
         # IDE0031: Use null propagation
         dotnet_style_null_propagation = true
         dotnet_diagnostic.IDE0031.severity = warning
-
+        
         # IDE0032: Use auto-implemented property
         dotnet_style_prefer_auto_properties = true
         dotnet_diagnostic.IDE0032.severity = warning
-
+        
         # IDE0033: Use explicitly provided tuple name
         dotnet_style_explicit_tuple_names = true
         dotnet_diagnostic.IDE0033.severity = warning
-
+        
         # IDE0034: Simplify 'default' expression
         csharp_prefer_simple_default_expression = true
         dotnet_diagnostic.IDE0034.severity = warning
-
+        
+        # IDE0035: Remove unreachable code (IDE-only per docs)
+        dotnet_diagnostic.IDE0035.severity = none
+        
         # IDE0036: Order modifiers
         # IDE0040: Add accessibility modifiers
         csharp_preferred_modifier_order = public,private,protected,internal,file,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,required,volatile,async
         dotnet_diagnostic.IDE0036.severity = warning
         dotnet_diagnostic.IDE0040.severity = warning
-
+        
         # IDE0037: Use inferred member names
         dotnet_style_prefer_inferred_tuple_names = true
         dotnet_style_prefer_inferred_anonymous_type_member_names = true
         dotnet_diagnostic.IDE0037.severity = warning
-
+        
+        # IDE0039: Use local function instead of lambda
+        dotnet_diagnostic.IDE0039.severity = none
+        
         # IDE0040: Add accessibility modifiers
         dotnet_style_require_accessibility_modifiers = for_non_interface_members
         dotnet_diagnostic.IDE0040.severity = warning
-
+        
         # IDE0041: Use 'is null' check
         dotnet_style_prefer_is_null_check_over_reference_equality_method = true
         dotnet_diagnostic.IDE0041.severity = warning
-
+        
+        # IDE0042: Deconstruct variable declaration
+        dotnet_diagnostic.IDE0042.severity = warning
+        
         # IDE0044: Add readonly modifier
         dotnet_style_readonly_field = true
         dotnet_diagnostic.IDE0044.severity = warning
-
+        
         # IDE0045: Use conditional expression for assignment
         dotnet_style_prefer_conditional_expression_over_assignment = true
         dotnet_diagnostic.IDE0045.severity = none
-
+        
         # IDE0046: Use conditional expression for return
         dotnet_style_prefer_conditional_expression_over_return = true
         dotnet_diagnostic.IDE0046.severity = none
-
+        
+        # IDE0047 and IDE0048: Parentheses preferences
+        dotnet_diagnostic.IDE0047.severity = warning
+        dotnet_diagnostic.IDE0048.severity = warning
+        
         # IDE0049: Use language keywords instead of framework type names for type references
         # Default is already true. This rule is not enabled on build.
         dotnet_style_predefined_type_for_locals_parameters_members = true
         dotnet_style_predefined_type_for_member_access = true
         dotnet_diagnostic.IDE0049.severity = warning
-
+        
+        # IDE0051: Remove unused private member
+        dotnet_diagnostic.IDE0051.severity = warning
+        
+        # IDE0052: Remove unread private member
+        dotnet_diagnostic.IDE0052.severity = warning
+        
+        # IDE0054 and IDE0074: Use compound assignment
+        dotnet_diagnostic.IDE0054.severity = warning
+        dotnet_diagnostic.IDE0074.severity = warning
+        
         # IDE0055: Fix formatting
         dotnet_diagnostic.IDE0055.severity = warning
-
+        
         # .NET formatting options - IDE0055
         dotnet_sort_system_directives_first = true
         dotnet_separate_import_directive_groups = false
-
+        
         # New line preferences - IDE0055
         csharp_new_line_before_open_brace = all
         csharp_new_line_before_else = true
@@ -1001,7 +1061,7 @@
         csharp_new_line_before_members_in_object_initializers = true
         csharp_new_line_before_members_in_anonymous_types = true
         csharp_new_line_between_query_expression_clauses = true
-
+        
         # Indentation preferences - IDE0055
         csharp_indent_block_contents = true
         csharp_indent_braces = false
@@ -1009,7 +1069,7 @@
         csharp_indent_case_contents_when_block = false
         csharp_indent_switch_labels = true
         csharp_indent_labels = one_less_than_current
-
+        
         # Spacing preferences - IDE0055
         csharp_space_after_cast = false
         csharp_space_after_colon_in_inheritance_clause = true
@@ -1033,34 +1093,93 @@
         csharp_space_between_method_declaration_parameter_list_parentheses = false
         csharp_space_between_parentheses = false
         csharp_space_between_square_brackets = false
-
+        
         # Wrapping preferences - IDE0055
         csharp_preserve_single_line_blocks = true
         csharp_preserve_single_line_statements = false
-
+        
         # IDE0056: Use index operator
         csharp_style_prefer_index_operator = false
         dotnet_diagnostic.IDE0056.severity = warning
-
+        
         # IDE0057: Use range operator
         csharp_style_prefer_range_operator = false
         dotnet_diagnostic.IDE0057.severity = warning
-
+        
+        # IDE0058: Remove unnecessary expression value
+        dotnet_diagnostic.IDE0058.severity = warning
+        
+        # IDE0059: Remove unnecessary value assignment
+        dotnet_diagnostic.IDE0059.severity = warning
+        
+        # IDE0060: Remove unused parameter
+        dotnet_diagnostic.IDE0060.severity = warning
+        
         # IDE0062: Make local function static
         csharp_prefer_static_local_function = true
         dotnet_diagnostic.IDE0062.severity = warning
-
+        
         # IDE0063: Use simple 'using' statement
         csharp_prefer_simple_using_statement = true
         dotnet_diagnostic.IDE0063.severity = warning
-
+        
+        # IDE0064: Make struct fields writable
+        dotnet_diagnostic.IDE0064.severity = warning
+        
+        # IDE0065: 'using' directive placement
+        dotnet_diagnostic.IDE0065.severity = none
+        
         # IDE0066: Use switch expression
         csharp_style_prefer_switch_expression = true
         dotnet_diagnostic.IDE0066.severity = warning
-
+        
+        # IDE0070: Use 'System.HashCode.Combine'
+        dotnet_diagnostic.IDE0070.severity = warning
+        
+        # IDE0071: Simplify interpolation
+        dotnet_diagnostic.IDE0071.severity = warning
+        
+        # IDE0072: Add missing cases to switch expression
+        dotnet_diagnostic.IDE0072.severity = warning
+        
+        # IDE0073: Require file header
+        dotnet_diagnostic.IDE0073.severity = none
+        
+        # IDE0075: Simplify conditional expression
+        dotnet_diagnostic.IDE0075.severity = warning
+        
+        # IDE0076: Remove invalid global 'SuppressMessageAttribute'
+        dotnet_diagnostic.IDE0076.severity = warning
+        
+        # IDE0077: Avoid legacy format target in global 'SuppressMessageAttribute'
+        dotnet_diagnostic.IDE0077.severity = warning
+        
+        # IDE0079: Remove unnecessary suppression (IDE-only per docs)
+        dotnet_diagnostic.IDE0079.severity = none
+        
+        # IDE0080: Remove unnecessary suppression operator
+        dotnet_diagnostic.IDE0080.severity = warning
+        
+        # IDE0081: Remove ByVal (VB-only)
+        dotnet_diagnostic.IDE0081.severity = warning
+        
+        # IDE0082: Convert typeof to nameof
+        dotnet_diagnostic.IDE0082.severity = warning
+        
+        # IDE0090: Simplify new expression
+        dotnet_diagnostic.IDE0090.severity = none
+        
+        # IDE0100: Remove unnecessary equality operator
+        dotnet_diagnostic.IDE0100.severity = warning
+        
+        # IDE0160 and IDE0161
+        csharp_style_namespace_declarations = file_scoped
+        dotnet_diagnostic.IDE0160.severity = warning
+        dotnet_diagnostic.IDE0161.severity = warning
+        
         # IDE1006: Naming rule violation
         dotnet_diagnostic.IDE1006.severity = warning
-
+        
         # Naming rules: name all constant fields using PascalCase (IDE1006)
         dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = warning
         dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols  = constant_fields
@@ -1068,7 +1187,7 @@
         dotnet_naming_symbols.constant_fields.applicable_kinds   = field
         dotnet_naming_symbols.constant_fields.required_modifiers = const
         dotnet_naming_style.pascal_case_style.capitalization = pascal_case
-
+        
         # Naming rules: static fields should have s_ prefix (IDE1006)
         dotnet_naming_rule.static_fields_should_have_prefix.severity = suggestion
         dotnet_naming_rule.static_fields_should_have_prefix.symbols  = static_fields
@@ -1078,7 +1197,7 @@
         dotnet_naming_symbols.static_fields.applicable_accessibilities = private, internal, private_protected
         dotnet_naming_style.static_prefix_style.required_prefix = s_
         dotnet_naming_style.static_prefix_style.capitalization = camel_case
-
+        
         # Naming rules: internal and private fields should be _camelCase (IDE1006)
         dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
         dotnet_naming_rule.camel_case_for_private_internal_fields.symbols  = private_internal_fields
@@ -1087,30 +1206,25 @@
         dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = private, internal
         dotnet_naming_style.camel_case_underscore_style.required_prefix = _
         dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case
-
+        
         # IDE1005
         csharp_style_conditional_delegate_call = true
-
-
-        # IDE0160 and IDE0161
-        csharp_style_namespace_declarations = file_scoped
-
-
+        
         # CA1014: Mark assemblies with CLSCompliant
         dotnet_diagnostic.CA1014.severity = none
-
+        
         # CA1824: Mark assemblies with NeutralResourcesLanguageAttribute
         dotnet_diagnostic.CA1824.severity = none
-
+        
         # CA1062: Validate arguments of public methods
         dotnet_diagnostic.CA1062.severity = none
-
+        
         # CA1510: Use ArgumentNullException throw helper
         dotnet_diagnostic.CA1510.severity = none
-
+        
         # CA1863: Use 'CompositeFormat'
         dotnet_diagnostic.CA1863.severity = none
-
+        
         # TODO: Use YAnalyzers for var vs explicit types.
 
         """;
