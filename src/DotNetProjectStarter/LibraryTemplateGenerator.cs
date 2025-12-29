@@ -19,17 +19,17 @@ internal sealed class LibraryTemplateGenerator : ITemplateGenerator
         }
 
         var githubWorkflowsPath = Path.Combine(outputDirectory, ".github", "workflows");
-        Directory.CreateDirectory(githubWorkflowsPath);
+        _ = Directory.CreateDirectory(githubWorkflowsPath);
         File.WriteAllText(Path.Combine(githubWorkflowsPath, "ci.yml"), LibraryTemplateConstants.LibraryTemplateCIYML);
         File.WriteAllText(Path.Combine(githubWorkflowsPath, "release.yml"), string.Format(CultureInfo.InvariantCulture, LibraryTemplateConstants.ReleaseYML, nugetUsername ?? "NUGET_USERNAME_GOES_HERE"));
 
         var srcProjectDirectory = Path.Combine(outputDirectory, "src", projectName);
-        Directory.CreateDirectory(srcProjectDirectory);
+        _ = Directory.CreateDirectory(srcProjectDirectory);
         File.WriteAllText(Path.Combine(srcProjectDirectory, $"{projectName}.csproj"), LibraryTemplateConstants.ProjectFile);
 
         var testsDirectory = Path.Combine(outputDirectory, "tests");
         var testsProjectDirectory = Path.Combine(testsDirectory, $"{projectName}.Tests");
-        Directory.CreateDirectory(testsProjectDirectory);
+        _ = Directory.CreateDirectory(testsProjectDirectory);
         File.WriteAllText(Path.Combine(testsDirectory, $"Directory.Build.props"), LibraryTemplateConstants.TestDirectoryBuildProps);
         File.WriteAllText(Path.Combine(testsProjectDirectory, $"{projectName}.Tests.csproj"), LibraryTemplateConstants.TestProjectFile);
         File.WriteAllText(Path.Combine(testsProjectDirectory, "AssemblyInfo.cs"), LibraryTemplateConstants.TestProjectAssemblyInfoFile);
