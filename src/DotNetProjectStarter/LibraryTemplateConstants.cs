@@ -52,7 +52,7 @@
                     run: dotnet pack --no-build --configuration ${{ matrix.configuration }} -bl:artifacts/log/pack.binlog
 
                   - name: Upload NuGet Packages
-                    if: matrix.configuration == 'release' && matrix.os == 'ubuntu-latest'
+                    if: matrix.configuration == 'release' && matrix.os == 'windows-latest'
                     uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
                     with:
                       name: nuget-packages-${{ matrix.os }}_${{ matrix.configuration }}
@@ -97,7 +97,7 @@
         jobs:
           build-and-pack:
             name: Build and Pack
-            runs-on: ubuntu-latest
+            runs-on: windows-latest
 
             steps:
               - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
